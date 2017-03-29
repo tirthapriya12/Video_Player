@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>VIDEO PLAYER</title>
+	 <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lobster+Two" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Yatra+One" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/responsivedesign.css">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+</head>
+<body>
+<header>
+	<!--AppName-->
+	<div class="container">
+		<h1>LadyBuddy <img style="width:12%;" src='img/ladybug.png'> Player  </h1>
+    
+	</div>
+</header>
+<section class='video-container'>
+<!-- <div class="embed-responsive embed-responsive-4by3">
+   
+</div> -->
+<p id='video-desc' >enter description</p>
+<div class="video">
+
+	<video id='firstVideo' preload='metadata' >
+	  <source src='' type='video/mp4'>
+	  Sorry Your Browser Doesn't Support this Video .... 
+	</video>
+	<img  id="play_pause"src="png/001-play.png">
+	</div>
+	<!--loader-->
+		<div id="preloader">
+            <img src="img/loader.gif" alt="video is loading"  />
+        </div>
+	<!--loader end-->
+	<div id="buttonbar">
+	 <label id='vidstart-time'>0:00</label>
+            <input type='range' id='playduration' min='0' max='100' value='0'>
+            <label id='vidend-time'>0:00</label>
+			<div class="control">
+				<div class="controlicon">
+			 <button title="play" id="play"><img   src="png/001-play.png"></button>
+			<button id="rewind" title='skip by -0:10' onclick="skip(-10)"><img  src="png/005-fast-forward.png"></button>
+			<button id="restart" title='replay' onclick='rewind()' ><img  src="png/refresh.png"></buuton>
+			<button id="fastFwd" title='skip by +0:10' onclick="skip(10)"><img  src="png/005-fast-forward.png"></button>
+			<button  id="fullscreen" title='toggle fullscreen'><img src="png/001-full-screen.png"></button>
+
+			<div class="volume-controller">
+			<button id='mute-toggle'><img src="png/002-megaphone.png"></button>
+            <input type='range' id='volume-controller' min='0' max='100' value='100' >
+            <label id='volume'>100</label>
+			</div>
+			</div>
+			</div>
+
+	</div>
+
+</section>
+<footer>
+<div class="container">
+<button id="prev_btn" ><img src="png/001-move-to-next.png" ></button>
+<button id="next_btn"><img src="png/001-move-to-next.png" ></button>
+</div>
+</footer>
+</body>
+<script src='script.js'></script>
+</html>
