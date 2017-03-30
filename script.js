@@ -31,7 +31,7 @@ var jsonlength;
 //attaching event listeners
 window.addEventListener('load', firstVideoLoad);
 video.addEventListener("contextmenu", disablecontrols, false);
-
+video.addEventListener('ended',reportEnd);
 
 
 
@@ -60,6 +60,7 @@ video.addEventListener('loadeddata', function () {
     btnplay.title = 'play';
     vanishLoader();
 }, false);
+
 
 
 
@@ -179,7 +180,7 @@ function vanishLoader() //displays controls when image is loaded
 {
 
 
-    console.log('Buffering stopped');
+    //console.log('Buffering stopped');
     //buttonbar.style.opacity='1';
     preloader.style.display = 'none';
 
@@ -190,7 +191,7 @@ function vanishLoader() //displays controls when image is loaded
 
 function bringLoader() {
 
-    console.log('buffering');
+    //console.log('buffering');
     preloader.style.display = 'block';
 }
 
@@ -223,8 +224,11 @@ function rewind() // reloads the video
 
 }
 
-$('input[type=range]').on('change',function()
+//$('input[type=range]')
+
+volumectrl.addEventListener('change',function()
 {
+  
      
     var value=(this.value/this.max);
      this.style.backgroundImage= '-webkit-gradient(linear, left top, right top, '
@@ -332,10 +336,14 @@ function vanishplayBubble() {
 
 function jumpto() //jumps to a time user clicked
 {
-
-    if (playduration.value < Math.floor((100 / video.duration) * video.currentTime)) {
+        //console.log('first '+jsonData[currentPageObject.currentpage].seen);
+if (playduration.value < Math.floor((100 / video.duration) * video.currentTime) || jsonData[currentPageObject.currentpage].seen)
+     {  
     video.currentTime = (playduration.value * video.duration) / 100;
     }
+else{
+    alert('you cannot skip forward untill you complete the video');
+}
 
 }
 
@@ -355,8 +363,14 @@ function disablecontrols(event) //disable right click on video
 
 function skip(val) {
 
-    video.currentTime = video.currentTime + val;
-
+   if(val<0 || jsonData[currentPageObject.currentpage].seen )
+   { 
+       video.currentTime = video.currentTime + val;
+    }
+    else
+    {
+        alert('you cannot skip forward untill you complete the video');
+    }
 
 }
 
@@ -405,7 +419,7 @@ function loadNextVideo() {
         document.getElementById("prev_btn").disabled = false;
         prev_btn.classList.remove('button-disable');
     }
-    console.log(currentPageObject.currentpage);
+    //console.log(currentPageObject.currentpage);
     video.src = jsonData[currentPageObject.currentpage].src;
     video_desc.innerHTML = jsonData[currentPageObject.currentpage].desc;
     video.poster=jsonData[currentPageObject.currentpage].poster
@@ -467,7 +481,7 @@ function toggleFullScreen() {
     
     var volume_controller=document.getElementsByClassName('volume-controller');
 
-     console.log(isFullScreen);
+    // console.log(isFullScreen);
         buttonbar.classList.add('fullscreenControl');
     if (!isFullScreen) {
 
@@ -511,14 +525,28 @@ function toggleFullScreen() {
 
     }
 
-   if (document.mozFullScreen && document.webkitFullScreen)
-    {
-            //alert('fired');
-        volume_controller[0].style.top='-88%';
-            volumectrl.style.top='-88%';
-    }
+
+   
    
 
 }
 
-//POSTER FETCHING FROM JSON 
+
+
+function fullScreenExitOnesc() 
+{
+    debugger;
+   
+}
+
+function reportEnd()
+{
+
+    btn_img.src='png/001-play.png';
+    btnplay.title='play';
+
+   // console.log(jsonData[currentPageObject.currentpage].seen);
+    jsonData[currentPageObject.currentpage].seen=true;
+   // console.log('ended');
+
+}
